@@ -1,25 +1,23 @@
 import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { lazy, Suspense } from "react";
 
 import GlobalStyle from "./styles/GlobalStyle";
 
-const Dashboard = lazy(() => import("./pages/Dashboard"));
-const Bookings = lazy(() => import("./pages/Bookings"));
-const Booking = lazy(() => import("./pages/Booking"));
-const Users = lazy(() => import("./pages/Users"));
-const Settings = lazy(() => import("./pages/Settings"));
-const Account = lazy(() => import("./pages/Account"));
-const Login = lazy(() => import("./pages/Login"));
-const Cabins = lazy(() => import("./pages/Cabins"));
-const PageNotFound = lazy(() => import("./pages/PageNotFound"));
-const Checkin = lazy(() => import("./pages/Checkin"));
+import Dashboard from "./pages/Dashboard";
+import Bookings from "./pages/Bookings";
+import Booking from "./pages/Booking";
+import Users from "./pages/Users";
+import Settings from "./pages/Settings";
+import Account from "./pages/Account";
+import Login from "./pages/Login";
+import Cabins from "./pages/Cabins";
+import PageNotFound from "./pages/PageNotFound";
+import Checkin from "./pages/Checkin";
 
 import AppLayout from "./ui/AppLayout";
 import { Toaster } from "react-hot-toast";
 import ProtectedRoute from "./ui/ProtectedRoute";
 import DarkModeProvider from "./context/DarkModeProvider";
-import Spinner from "./ui/Spinner";
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -34,29 +32,27 @@ function App() {
       <QueryClientProvider client={queryClient}>
         <GlobalStyle />
         <BrowserRouter>
-          <Suspense fallback={<Spinner />}>
-            <Routes>
-              <Route
-                element={
-                  <ProtectedRoute>
-                    <AppLayout />
-                  </ProtectedRoute>
-                }
-              >
-                <Route index element={<Navigate to="dashboard" replace />} />
-                <Route path="dashboard" element={<Dashboard />} />
-                <Route path="bookings" element={<Bookings />} />
-                <Route path="bookings/:bookingId" element={<Booking />} />
-                <Route path="checkin/:bookingId" element={<Checkin />} />
-                <Route path="cabins" element={<Cabins />} />
-                <Route path="users" element={<Users />} />
-                <Route path="settings" element={<Settings />} />
-                <Route path="account" element={<Account />} />
-              </Route>
-              <Route path="login" element={<Login />} />
-              <Route path="*" element={<PageNotFound />} />
-            </Routes>
-          </Suspense>
+          <Routes>
+            <Route
+              element={
+                <ProtectedRoute>
+                  <AppLayout />
+                </ProtectedRoute>
+              }
+            >
+              <Route index element={<Navigate to="dashboard" replace />} />
+              <Route path="dashboard" element={<Dashboard />} />
+              <Route path="bookings" element={<Bookings />} />
+              <Route path="bookings/:bookingId" element={<Booking />} />
+              <Route path="checkin/:bookingId" element={<Checkin />} />
+              <Route path="cabins" element={<Cabins />} />
+              <Route path="users" element={<Users />} />
+              <Route path="settings" element={<Settings />} />
+              <Route path="account" element={<Account />} />
+            </Route>
+            <Route path="login" element={<Login />} />
+            <Route path="*" element={<PageNotFound />} />
+          </Routes>
         </BrowserRouter>
         <Toaster
           position="top-center"
