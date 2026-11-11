@@ -28,13 +28,13 @@ export async function login({ email, password }) {
 
 export async function getCurrentUser() {
   const {
-    data: { user },
+    data: { session },
     error,
-  } = await supabase.auth.getUser();
+  } = await supabase.auth.getSession();
 
   if (error) throw new Error(error.message);
 
-  return user;
+  return session?.user ?? null;
 }
 
 export async function logout() {
