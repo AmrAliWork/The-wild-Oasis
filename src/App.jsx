@@ -1,5 +1,6 @@
 import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import Spinner from "./ui/Spinner";
 import { lazy, Suspense } from "react";
 
 import GlobalStyle from "./styles/GlobalStyle";
@@ -33,7 +34,7 @@ function App() {
       <QueryClientProvider client={queryClient}>
         <GlobalStyle />
         <BrowserRouter>
-          <Suspense fallback={<FullPageSpinner />}>
+          <Suspense fallback={<Spinner />}>
             <Routes>
               <Route
                 element={
